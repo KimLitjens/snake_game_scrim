@@ -1,0 +1,10 @@
+html, body {
+    margin: 10;
+    padding: 10
+}
+
+.grid {
+    width: 200px;
+    height: 200px;
+    border: solid 1px black;
+}
