@@ -4,6 +4,7 @@ const score = document.getElementById('score')
 let squares = []
 let currentSnake = [2, 1, 0]
 let direction = 1
+let width = 10
 
 function createGrid() {
     for (let i = 0; i < 100; i++) {
@@ -26,3 +27,13 @@ function move() {
 }
 
 let timerId = setInterval(move, 1000)
+
+function control(e) {
+    (e.keyCode === 39) ? console.log('right pressed')(direction = 1)
+        : (e.keyCode === 38) ? console.log('up pressed')(direction = -width)
+            : (e.keyCode === 37) ? console.log('left pressed')(direction = -1)
+                : (e.keyCode === 40) ? console.log('down pressed')(direction = +width)
+                    : ''
+}
+
+document.addEventListener('keyup', control)
