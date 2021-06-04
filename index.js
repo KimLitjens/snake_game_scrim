@@ -1,11 +1,14 @@
 const grid = document.querySelector('.grid')
 const startButton = document.getElementById('start')
-const score = document.getElementById('score')
+const scoreDisplay = document.getElementById('score')
 let squares = []
 let currentSnake = [2, 1, 0]
 let direction = 1
 const width = 10
 let appleIndex = 0
+let score = 0
+let intervalTime = 1000
+let speed = 0.9
 
 function createGrid() {
     for (let i = 0; i < width * width; i++) {
@@ -34,17 +37,29 @@ function move() {
     squares[tail].classList.remove('snake')
     currentSnake.unshift(currentSnake[0] + direction)
     squares[currentSnake[0]].classList.add('snake')
+
+    if (squares[currentSnake[0]].classList.contains('apple')) {
+        squares[currentSnake[0]].classList.remove('apple')
+        squares[tail].classList.add('snake')
+        currentSnake.push(tail)
+        generateApple()
+        score++
+        scoreDisplay.textContent = score
+        clearInterval(timerId)
+        intervalTime = intervalTime * speed
+        timerId = setInterval(move, intervalTime)
+    }
 }
 
-let timerId = setInterval(move, 1000)
+let timerId = setInterval(move, intervalTime)
 
-function generateApples() {
+function generateApple() {
     do {
         appleIndex = Math.floor(Math.random() * squares.length)
     } while (squares[appleIndex].classList.contains('snake'))
     squares[appleIndex].classList.add('apple')
 }
-generateApples()
+generateApple()
 
 function control(e) {
     (e.keyCode === 39) ? (direction = 1)
