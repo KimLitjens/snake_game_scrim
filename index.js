@@ -2,7 +2,8 @@ const grid = document.querySelector('.grid')
 const startButton = document.getElementById('start')
 const score = document.getElementById('score')
 let squares = []
-let currentSnake = [0, 1, 2]
+let currentSnake = [2, 1, 0]
+let direction = 1
 
 function createGrid() {
     for (let i = 0; i < 100; i++) {
@@ -16,3 +17,12 @@ function createGrid() {
 createGrid()
 
 currentSnake.forEach(index => squares[index].classList.add('snake'))
+
+function move() {
+    const tail = currentSnake.pop()
+    squares[tail].classList.remove('snake')
+    currentSnake.unshift(currentSnake[0] + direction)
+    squares[currentSnake[0]].classList.add('snake')
+}
+
+let timerId = setInterval(move, 1000)
