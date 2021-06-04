@@ -16,3 +16,7 @@ html, body {
     height: 20px;
     background-color: orange;
 }
+
+.snake {
+    background-color: blue;
+}
